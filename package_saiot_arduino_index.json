@@ -15,8 +15,8 @@
           "category": "Contributed",
           "url": "https://github.com/AL2TECH/saiot-arduino/raw/main/saiot-arduino-0.0.1.zip",
           "archiveFileName": "saiot-arduino-0.0.1.zip",
-          "checksum": "SHA-256:d596292260629e31136dfc99600fd867e6357401804239025d55b92df8c82dc1",
-          "size": "78315095",
+          "checksum": "SHA-256:cea9692687f128e64cf41e760eedf9d842d40e6bf6847ee21041b1f735a2a2e5",
+          "size": "78315101",
           "boards": [
             {
               "name": "SAIOT HPM"
