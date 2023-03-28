@@ -10,13 +10,13 @@
         {
           "name": "SANTAGOSTINO IOT Boards",
           "architecture": "esp32",
-          "version": "0.0.3",
+          "version": "0.0.4",
           "deprecated": false,
           "category": "Contributed",
-          "url": "https://github.com/AL2TECH/saiot-arduino/raw/main/saiot-arduino-0.0.3.zip",
-          "archiveFileName": "saiot-arduino-0.0.3.zip",
-          "checksum": "SHA-256:b434e74d07d8f34fe2e19113b17681af0d4dfb20838e7e29e5cb9e108706477a",
-          "size": "78341458",
+          "url": "https://github.com/AL2TECH/saiot-arduino/raw/main/saiot-arduino-0.0.4.zip",
+          "archiveFileName": "saiot-arduino-0.0.4.zip",
+          "checksum": "SHA-256:81fb66a535d234b0251026c717083fbe01155dc83ee31c4c9bcf2786006f0372",
+          "size": "78341593",
           "boards": [
             {
               "name": "SAIOT HPM"
