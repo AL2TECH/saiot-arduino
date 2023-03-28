@@ -254,11 +254,18 @@ The methods available for the expansion serial are a subset of the same availabl
 # Useful information
 ## Dealing low power mode (deep sleep) and persistent variables
 When low power mode is enabled (see SAIOT_Board API for details) the esp32 enters in deep sleep. During this mode the only peripherals still powered are:
-* RTC controller
-* RTC peripherals
-* RTC memory
-The RAM is powered down: it means that each time the mcu is woken up it performs a sort of software reset and executes the code from beginning, all the values of local variables are lost.
-In order to keep persistent information between wakes you have to save variables on the RTC memory. 
+* RTC controller.
+* RTC peripherals.
+* RTC memory.
 
+The RAM is powered down: it means that each time the mcu is woken up it performs a sort of software reset and executes the code from beginning, all the values of local variables are lost.
+In order to keep persistent information between wakes you have to save variables on the RTC memory. In order to do that  you need to place RTC_DATA_ATTR in front of any variable that you want to store in RTC memory (e.g., RTC_DATA_ATTR int counter = 0).
+## Examples
+There are three examples available that show the main features of SAIOT_Board (you find them under File->Examples->SAIOT_Board):
+* saiot_board_tasks_basic.ino: shows creation/usage of three simple tasks, each task is in charge of turn on one led every 5 seconds.
+* saiot_board_task_subscribe.ino: shows how handle mqtt subscribe inside a task.
+* saiot_board_tasks_advanced.ino: shows how to sampling data from imu in one task and how to mqtt publish those data in another task. Low power mode (deep sleep) is enabled and also deals with RTC memory for storing imu sampled data.
+
+Verbose details are in the examples code wrote as comment.
 # Useful references
 * deep sleep: https://docs.espressif.com/projects/esp-idf/en/v4.4.4/esp32/api-reference/system/sleep_modes.html
