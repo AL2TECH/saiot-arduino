@@ -37,8 +37,8 @@ arduino board-package targeting Santagostino IoT devices
 3. Choose the right COM port.
 
 # API Documentation: SAIOT_Board class
-* package version: 0.0.4
 * This section describes the available methods and public variables in SAIOT_Board class.
+* The class is in charge of handling the board core low-level functions (dealing with HW peripherals, scheduling, etc..) 
 ## Public variables
 ## board_status_t status
 Public variable holding last available board status. It values:
@@ -101,9 +101,8 @@ get the number of seconds since Unix epoch.
 ## loop()
 Handles tasks execution and deep sleep/delay. This should be called as final statement inside Arduino void loop().
 # API Documentation: SAIOT_Task class
-* package version: 0.0.4
 * This section describes the main available methods in SAIOT_Task class.
-
+* This class is designed to create all the needed stuff by a periodic task in easy fashion.
 ## Methods
 ## SAIOT_Task(task_id, interval_time,callback, [offset_time=0], [task_enabled=true])
 Creates a task instance.
@@ -115,8 +114,8 @@ Creates a task instance.
 * const bool task_enabled (optional): indicates if enable or disable the task.
 
 # API Documentation: SAIOT_MQTT class
-* package version: 0.0.4
-* This section describes the main available methods in SAIOT_MQTT class.
+* This section describes the available methods in SAIOT_MQTT class.
+* This class handles mqtt related stuff.
 ## Methods
 ## bool connect(client_id, username, pwd, server, port)
 Connects to a mqtt server, providing client_id, username, password, server address and server port.
@@ -184,5 +183,74 @@ Returns mqtt state.
 * MQTT_CONNECT_UNAUTHORIZED    5
 
 # API Documentation: SAIOT_LSM6DSOXClass class
-* package version: 0.0.4
 * The methods are the same provided in Arduino_LSM6DSOX official library, version 1.1.2 (ref: https://reference.arduino.cc/reference/en/libraries/arduino_lsm6dsox/).
+
+# API Documentation: SAIOT_LED class
+* This section describes the available methods in SAIOT_LED class.
+* This class handles leds.
+## Methods
+## ledOn(led_id)
+Turns on the the specified led.
+### Parameters
+* const uint8_t led_id: the specified led id (use one of these defines: LED_R, LED_G, LED_B).
+## ledOff(led_id)
+Turns off the the specified led.
+### Parameters
+* const uint8_t led_id: the specified led id (use one of these defines: LED_R, LED_G, LED_B).
+## ledsOn()
+Turns on all leds.
+## ledsOff()
+Turns off all leds.
+# API Documentation: SAIOT_BUTTON class
+* This section describes the available methods in SAIOT_BUTTON class.
+* This class handles buttons.
+* Buttons are by default set as INPUT_PULLUP.
+##  getButtonStatus(button_id)
+Gets the button status.
+### Parameters
+* const uint8_t button_id: the specified button id (use BTN_0 define to check user button).
+### Returns
+* HIGH: button not pressed.
+* LOW: button pressed.
+# API Documentation: SAIOT_Expansion class
+* This section describes the available methods in SAIOT_Expansion class.
+* This class handles expansion port.
+* The expansion port provides two user-configurable pins and one serial (UART).
+* The two gpios are by default set as INPUT_PULLDOWN.
+
+![Expansion gpios port](imgs/exp_gpios.PNG "Expansion gpios port")
+
+## pinModeExp(exp_gpio_id, mode)
+Sets the pin mode of the specified expansion pin.
+### Parameters
+* const uint8_t exp_gpio_id: the specified expansion pin id (use one the these defines: EXP_PIN_0, EXP_PIN_1).
+* const uint8_t mode: sets the specified mode on exp_gpio_id. Accepted values: INPUT, INPUT_PULLUP, INPUT_PULLDOWN, OUTPUT.
+
+## digitaReadExp(exp_gpio_id)
+Reads the value of the specified expansion pin.
+### Parameters
+* const uint8_t exp_gpio_id: the specified expansion pin id (use one the these defines: EXP_PIN_0, EXP_PIN_1).
+### Returns
+* HIGH: the pin is in HIGH state.
+* LOW: the pin is in LOW state.
+
+
+## digitaWriteExp(exp_gpio_id, value)
+Writes the passed value on the specified expansion pin.
+### Parameters
+* const uint8_t exp_gpio_id: the specified expansion pin id (use one the these defines: EXP_PIN_0, EXP_PIN_1).
+* const uint8_t value: the value to write. Accepted values: HIGH, LOW.
+## Expansion serial
+The methods available for the expansion serial are a subset of the same available in Arduino serial. Use https://www.arduino.cc/reference/en/language/functions/communication/serial/ as documentation for the equivalent provided methods:
+* serialBeginExp (speed, config)
+* serialEndExp()
+* setTimeoutExp(time)
+* int availableExp()
+* int availableForWriteExp()
+* printExp (string)
+* printlnExp (string)
+* size_t writeExp(buffer, len)
+* size_t readStringExp()
+* size_t readBytesExp(buffer, len)
+* flush()
+
