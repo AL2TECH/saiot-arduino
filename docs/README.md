@@ -58,8 +58,8 @@ Pointer to a SAIOT_MQTT globally initialized class object.
 Pointer to a SAIOT_LED globally initialized class object.
 ## SAIOT_BUTTON* button
 Pointer to a SAIOT_BUTTON globally initialized class object.
-## SAIOT_LSM6DSOXClass* imu
-Pointer to a SAIOT_LSM6DSOXClass globally initialized class object.
+## SAIOT_LSM6DSOX* imu
+Pointer to a SAIOT_LSM6DSOX globally initialized class object.
 ## SAIOT_Expansion* expansion
 Pointer to a SAIOT_Expansion globally initialized class object.
 ## Methods
@@ -182,7 +182,7 @@ Returns mqtt state.
 * MQTT_CONNECT_BAD_CREDENTIALS 4
 * MQTT_CONNECT_UNAUTHORIZED    5
 
-# API Documentation: SAIOT_LSM6DSOXClass class
+# API Documentation: SAIOT_LSM6DSOX class
 * The methods are the same provided in Arduino_LSM6DSOX official library, version 1.1.2 (ref: https://reference.arduino.cc/reference/en/libraries/arduino_lsm6dsox/).
 
 # API Documentation: SAIOT_LED class
@@ -254,3 +254,15 @@ The methods available for the expansion serial are a subset of the same availabl
 * size_t readBytesExp(buffer, len)
 * flush()
 
+# Useful information
+## Dealing with multiple tasks and low power mode (deep sleep)
+When low power mode is enabled (see SAIOT_Board API for details) the esp32 enters in deep sleep. During this mode the only peripherals still powered are:
+* RTC controller
+* RTC peripherals
+* RTC memory
+The RAM is powered down: it means that each time the mcu is woken up it performs a sort of reset and executes the code from beginning, all the values of local variables is lost.
+In order to keep persistent information between wakes you have to save variables in RTC memory. 
+
+
+# Useful references
+* deep sleep: https://docs.espressif.com/projects/esp-idf/en/v4.4.4/esp32/api-reference/system/sleep_modes.html
