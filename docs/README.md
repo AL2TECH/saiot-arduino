@@ -36,6 +36,13 @@ Arduino board-package targeting Sant'Agostino IoT devices.
 
 3. Choose the assigned COM port under Tools->Port.
 
+# Examples
+There are three examples available that show the main features of the SAIOT_Board class (available under File->Examples->SAIOT_Board):
+* saiot_board_tasks_basic.ino: shows the creation and usage of three simple tasks, each task is in charge of blinking on one led every 5 seconds for 1 second.
+* saiot_board_task_subscribe.ino: shows how to handle an MQTT subscription inside a task.
+* saiot_board_tasks_advanced.ino: shows how to sample data from the imu in one task and how to publish via MQTT those data in another task. Low power mode (deep sleep) is enabled and also RTC memory is used for storing imu sampled data persistently.
+
+Verbose details are in the examples code written as comments.
 # API Documentation: SAIOT_Board class
 * This section describes the available methods and public variables exposed by the SAIOT_Board class.
 * The class is in charge of handling the board low-level functions (dealing with HW peripherals, scheduler, etc..).
@@ -115,10 +122,10 @@ Creates a task instance.
 
 # API Documentation: SAIOT_MQTT class
 * This section describes the available methods in SAIOT_MQTT class.
-* This class handles mqtt related operations.
+* This class handles MQTT related operations.
 ## Methods
 ## bool connect(client_id, username, pwd, server, port)
-Connects to a mqtt server, providing client_id, username, password, server address and server port.
+Connects to a MQTT server, providing client_id, username, password, server address and server port.
 ### Parameters
 * const char* client_id: string containing the client ID.
 * const char* username: string containing the client username.
@@ -134,10 +141,10 @@ Connects to a mqtt server, providing client_id, username, password, server addre
 * true: disconnection success.
 * false: disconnection failed.
 ## bool isConnected()
-Checks mqtt connection.
+Checks MQTT connection.
 ### Returns
-* true: mqtt server is connected.
-* false: mqtt server is not connected.
+* true: MQTT server is connected.
+* false: MQTT server is not connected.
 ##  bool publish(topic, payload)
 Publishes a payload(string) to the assigned topic.
 ### Parameters
@@ -169,7 +176,7 @@ Processes incoming messages until a timeout is elapsed. Returns true if client i
 * true: client still connected.
 * false: client not connected.
 ## int getState()
-Returns mqtt state.
+Returns MQTT state.
 ### Returns
 * MQTT_CONNECTION_TIMEOUT     -4
 * MQTT_CONNECTION_LOST        -3
@@ -260,12 +267,6 @@ When low power mode is enabled (see SAIOT_Board API for details) the esp32 enter
 
 The RAM is powered down: it means that each time the mcu is woken up it performs a sort of software reset and executes the code from beginning, all the values of local variables are lost.
 In order to keep persistent information between wakes you have to save variables on the RTC memory. In order to do that  you need to place RTC_DATA_ATTR in front of any variable that you want to store in RTC memory (e.g., RTC_DATA_ATTR int counter = 0).
-## Examples
-There are three examples available that show the main features of SAIOT_Board (you find them under File->Examples->SAIOT_Board):
-* saiot_board_tasks_basic.ino: shows creation/usage of three simple tasks, each task is in charge of turn on one led every 5 seconds.
-* saiot_board_task_subscribe.ino: shows how handle mqtt subscribe inside a task.
-* saiot_board_tasks_advanced.ino: shows how to sampling data from imu in one task and how to mqtt publish those data in another task. Low power mode (deep sleep) is enabled and also deals with RTC memory for storing imu sampled data.
 
-Verbose details are in the examples code wrote as comment.
 # Useful references
 * deep sleep: https://docs.espressif.com/projects/esp-idf/en/v4.4.4/esp32/api-reference/system/sleep_modes.html
